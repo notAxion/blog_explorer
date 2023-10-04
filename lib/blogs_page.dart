@@ -1,3 +1,4 @@
+import 'package:blog_explorer/args/detail_args.dart';
 import 'package:blog_explorer/models/blogs_model.dart';
 import 'package:blog_explorer/res/blogs_api.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +72,7 @@ class _BlogsState extends State<Blogs> {
   Widget blogCard(BlogModel blog) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed('/detail');
+        Navigator.of(context).pushNamed('/detail', arguments: DetailArgs(blog));
       },
       child: Card(
         shape: RoundedRectangleBorder(

@@ -1,3 +1,4 @@
+import 'package:blog_explorer/args/detail_args.dart';
 import 'package:blog_explorer/blog_detail.dart';
 import 'package:blog_explorer/blogs_page.dart';
 import 'package:blog_explorer/res/blogs_api.dart';
@@ -32,7 +33,10 @@ Route routes(RouteSettings settings) {
     case '/':
       return MaterialPageRoute(builder: (_) => Blogs());
     case '/detail':
-      return MaterialPageRoute(builder: (_) => BlogDetail());
+      return MaterialPageRoute(builder: (_) {
+        final args = settings.arguments as DetailArgs;
+        return BlogDetail(blog: args.blog);
+      });
     default:
       return MaterialPageRoute(
         builder: (_) => const Scaffold(
