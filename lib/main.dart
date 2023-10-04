@@ -1,3 +1,4 @@
+import 'package:blog_explorer/blog_detail.dart';
 import 'package:blog_explorer/blogs_page.dart';
 import 'package:blog_explorer/res/blogs_api.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ Route routes(RouteSettings settings) {
   switch (settings.name) {
     case '/':
       return MaterialPageRoute(builder: (_) => Blogs());
+    case '/detail':
+      return MaterialPageRoute(builder: (_) => BlogDetail());
     default:
       return MaterialPageRoute(
         builder: (_) => const Scaffold(

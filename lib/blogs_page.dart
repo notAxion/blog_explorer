@@ -69,25 +69,30 @@ class _BlogsState extends State<Blogs> {
   }
 
   Widget blogCard(BlogModel blog) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Theme.of(context).colorScheme.outline,
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pushNamed('/detail');
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: Theme.of(context).colorScheme.outline,
+          ),
+          borderRadius: BorderRadius.circular(12),
         ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      margin: const EdgeInsets.all(8.0),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 250,
-              child: Image.network(blog.imageUrl),
-            ),
-            cardFooter(blog),
-          ],
+        margin: const EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 250,
+                child: Image.network(blog.imageUrl),
+              ),
+              cardFooter(blog),
+            ],
+          ),
         ),
       ),
     );
