@@ -96,7 +96,13 @@ class _BlogsState extends State<Blogs> {
   Widget cardFooter(BlogModel blog) {
     return Row(
       children: [
-        Text(blog.title),
+        Flexible(
+          child: Text(
+            blog.title,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         IconButton(
           onPressed: () {},
           // TODO add animated icon to animate it to fill version
