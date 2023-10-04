@@ -33,9 +33,12 @@ class _BlogDetailState extends State<BlogDetail> {
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          SizedBox(
-            height: 250,
-            child: Image.network(blog.imageUrl),
+          Hero(
+            tag: blog.id,
+            child: SizedBox(
+              height: 250,
+              child: Image.network(blog.imageUrl),
+            ),
           ),
           Text(
             blog.title,

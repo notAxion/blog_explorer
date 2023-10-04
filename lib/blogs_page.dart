@@ -87,9 +87,12 @@ class _BlogsState extends State<Blogs> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                height: 250,
-                child: Image.network(blog.imageUrl),
+              Hero(
+                tag: blog.id,
+                child: SizedBox(
+                  height: 250,
+                  child: Image.network(blog.imageUrl),
+                ),
               ),
               cardFooter(blog),
             ],
