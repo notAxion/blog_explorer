@@ -95,6 +95,7 @@ class _BlogsState extends State<Blogs> {
 
   Widget cardFooter(BlogModel blog) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
           child: Text(
