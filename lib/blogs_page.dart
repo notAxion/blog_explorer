@@ -88,7 +88,7 @@ class _BlogsState extends State<Blogs> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Hero(
-                tag: blog.id,
+                tag: "${blog.id}-image",
                 child: SizedBox(
                   height: 250,
                   child: Image.network(blog.imageUrl),
@@ -107,10 +107,14 @@ class _BlogsState extends State<Blogs> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
-          child: Text(
-            blog.title,
-            maxLines: 4,
-            overflow: TextOverflow.ellipsis,
+          child: Hero(
+            tag: "${blog.id}-title",
+            child: Text(
+              blog.title,
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           ),
         ),
         IconButton(

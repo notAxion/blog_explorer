@@ -34,15 +34,19 @@ class _BlogDetailState extends State<BlogDetail> {
       child: Column(
         children: [
           Hero(
-            tag: blog.id,
+            tag: "${blog.id}-image",
             child: SizedBox(
               height: 250,
               child: Image.network(blog.imageUrl),
             ),
           ),
-          Text(
-            blog.title,
-            textScaleFactor: 2.0,
+          Hero(
+            tag: "${blog.id}-title",
+            child: Text(
+              blog.title,
+              textScaleFactor: 2.0,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
         ],
       ),
