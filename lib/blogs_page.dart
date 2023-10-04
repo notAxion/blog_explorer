@@ -1,3 +1,5 @@
+import 'package:blog_explorer/models/blogs_model.dart';
+import 'package:blog_explorer/res/blogs_api.dart';
 import 'package:flutter/material.dart';
 
 class Blogs extends StatefulWidget {
@@ -18,7 +20,7 @@ class _BlogsState extends State<Blogs> {
       });
     }).onError((error, stacktrace) {
       // TODO handle error gracefully
-      debugPrint(error);
+      debugPrint(error.toString());
     });
     super.initState();
   }
@@ -39,7 +41,7 @@ class _BlogsState extends State<Blogs> {
       children: [
         _searchBar(),
         Expanded(
-          child: _showBlogsList,
+          child: _showBlogsList(),
         ),
       ],
     );
@@ -47,7 +49,7 @@ class _BlogsState extends State<Blogs> {
 
   Widget _searchBar() {
     return TextField(
-      onChanged: () {},
+      onChanged: (value) {},
       decoration: InputDecoration(
         hintText: "Search",
         border: OutlineInputBorder(
@@ -79,10 +81,10 @@ class _BlogsState extends State<Blogs> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          chidren: [
+          children: [
             SizedBox(
               height: 250,
-              child: Image.network(blog.ImageUrl),
+              child: Image.network(blog.imageUrl),
             ),
             cardFooter(blog),
           ],
@@ -93,15 +95,14 @@ class _BlogsState extends State<Blogs> {
 
   Widget cardFooter(BlogModel blog) {
     return Row(
-
-      chidren: [
+      children: [
         Text(blog.title),
         IconButton(
           onPressed: () {},
           // TODO add animated icon to animate it to fill version
-          child: Icon(Icons.favorite_outlined_rounded),
-        )
-      ]
-    )
+          icon: Icon(Icons.favorite_outline_rounded),
+        ),
+      ],
+    );
   }
 }

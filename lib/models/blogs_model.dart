@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'blogs_model.g.dart';
 
-@JsonSeiralizable(createToJson: false)
+@JsonSerializable(createToJson: false)
 class BlogsListModel {
   final List<BlogModel> blogs;
 
@@ -10,7 +10,7 @@ class BlogsListModel {
     required this.blogs,
   });
 
-  factory BlogsListModel.fromJson(map<string, dynamic> json) =>
+  factory BlogsListModel.fromJson(Map<String, dynamic> json) =>
       _$BlogsListModelFromJson(json);
 }
 
@@ -21,10 +21,10 @@ class BlogModel {
   @JsonKey(name: "image_url")
   final String imageUrl;
   final String title;
-  @JsonKey(ignore: true)
-  bool isFavorite,
-  @JsonKey(ignore: true)
-  bool isHidden,
+  @JsonKey(includeFromJson: false)
+  bool isFavorite;
+  @JsonKey(includeFromJson: false)
+  bool isHidden;
 
   BlogModel({
     required this.id,
@@ -34,6 +34,6 @@ class BlogModel {
     this.isHidden = false,
   });
 
-  factory BlogModel.fromJson(map<string, dynamic> json) =>
-      _$BlogsModelFromJson(json);
+  factory BlogModel.fromJson(Map<String, dynamic> json) =>
+      _$BlogModelFromJson(json);
 }
