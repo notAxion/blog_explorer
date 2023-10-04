@@ -24,6 +24,25 @@ class _BlogDetailState extends State<BlogDetail> {
           ),
         ),
       ),
+      body: _detailBody(),
+    );
+  }
+
+  Widget _detailBody() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 250,
+            child: Image.network(blog.imageUrl),
+          ),
+          Text(
+            blog.title,
+            textScaleFactor: 2.0,
+          ),
+        ],
+      ),
     );
   }
 }
