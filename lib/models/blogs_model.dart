@@ -2,20 +2,38 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'blogs_model.g.dart';
 
-@JsonSerializable(createToJson: false)
-class BlogsModel {
-  // uuid
-  String id;
-  @JsonKey(name: "image_url")
-  String imageUrl;
-  String title;
+@JsonSeiralizable(createToJson: false)
+class BlogsListModel {
+  final List<BlogModel> blogs;
 
-  BlogsModel({
+  BlogsListModel({
+    required this.blogs,
+  });
+
+  factory BlogsListModel.fromJson(map<string, dynamic> json) =>
+      _$BlogsListModelFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class BlogModel {
+  // uuid
+  final String id;
+  @JsonKey(name: "image_url")
+  final String imageUrl;
+  final String title;
+  @JsonKey(ignore: true)
+  bool isFavorite,
+  @JsonKey(ignore: true)
+  bool isHidden,
+
+  BlogModel({
     required this.id,
     required this.imageUrl,
     required this.title,
+    this.isFavorite = false,
+    this.isHidden = false,
   });
 
-  factory BlogsModel.fromJson(Map<String, dynamic> json) =>
+  factory BlogModel.fromJson(map<string, dynamic> json) =>
       _$BlogsModelFromJson(json);
 }
