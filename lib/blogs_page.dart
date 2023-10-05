@@ -4,37 +4,32 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Blogs extends StatefulWidget {
+class Blogs extends StatelessWidget {
   const Blogs({super.key});
 
-  @override
-  State<Blogs> createState() => _BlogsState();
-}
-
-class _BlogsState extends State<Blogs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Blogs and Articles"),
       ),
-      body: _blogsHomePage(),
+      body: _blogsHomePage(context),
     );
   }
 
-  Widget _blogsHomePage() {
+  Widget _blogsHomePage(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _searchBar(),
+        _searchBar(context),
         Expanded(
-          child: _showBlogsList(),
+          child: _showBlogsList(context),
         ),
       ],
     );
   }
 
-  Widget _searchBar() {
+  Widget _searchBar(BuildContext context) {
     return TextField(
       onChanged: (value) {},
       decoration: InputDecoration(
@@ -46,7 +41,7 @@ class _BlogsState extends State<Blogs> {
     );
   }
 
-  Widget _showBlogsList() {
+  Widget _showBlogsList(BuildContext context) {
     final blogs = context.watch<List<BlogModel>>();
     return ListView.builder(
       itemCount: blogs.length,
@@ -80,9 +75,9 @@ class _BlogsState extends State<Blogs> {
             children: [
               Hero(
                 tag: "${blog.id}-image",
-                child: _showBlogImage(blog),
+                child: _showBlogImage(context, blog),
               ),
-              cardFooter(blog),
+              cardFooter(context, blog),
             ],
           ),
         ),
@@ -90,7 +85,7 @@ class _BlogsState extends State<Blogs> {
     );
   }
 
-  Widget _showBlogImage(BlogModel blog) {
+  Widget _showBlogImage(BuildContext context, BlogModel blog) {
     try {
       return SizedBox(
         height: 250,
@@ -122,7 +117,7 @@ class _BlogsState extends State<Blogs> {
     }
   }
 
-  Widget cardFooter(BlogModel blog) {
+  Widget cardFooter(BuildContext context, BlogModel blog) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
