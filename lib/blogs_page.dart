@@ -51,12 +51,16 @@ class _BlogsState extends State<Blogs> {
     return ListView.builder(
       itemCount: blogs.length,
       itemBuilder: (context, index) {
-        return blogCard(blogs[index]);
+        return ChangeNotifierProvider.value(
+          value: blogs[index],
+          builder: (context, child) => blogCard(context),
+        );
       },
     );
   }
 
-  Widget blogCard(BlogModel blog) {
+  Widget blogCard(BuildContext context) {
+    final blog = context.read<BlogModel>();
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed('/detail', arguments: DetailArgs(blog));
@@ -133,19 +137,20 @@ class _BlogsState extends State<Blogs> {
             ),
           ),
         ),
-        IconButton(
-          onPressed: () {
-            setState(() {
+        Selector<BlogModel, bool>(
+          selector: (_, blog) => blog.isFavorite,
+          builder: (context, isFavorite, child) => IconButton(
+            onPressed: () {
               blog.isFavorite = !blog.isFavorite;
-            });
-          },
-          // TODO add animated icon to animate it to fill version
-          icon: (blog.isFavorite)
-              ? Icon(
-                  Icons.favorite_rounded,
-                  color: Colors.red,
-                )
-              : Icon(Icons.favorite_outline_rounded),
+            },
+            // TODO add animated icon to animate it to fill version
+            icon: (isFavorite)
+                ? Icon(
+                    Icons.favorite_rounded,
+                    color: Colors.red,
+                  )
+                : Icon(Icons.favorite_outline_rounded),
+          ),
         ),
       ],
     );
