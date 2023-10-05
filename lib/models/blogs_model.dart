@@ -6,10 +6,13 @@ part 'blogs_model.g.dart';
 @JsonSerializable(createToJson: false)
 class BlogsListModel {
   final List<BlogModel> blogs;
+  late List<BlogModel> filteredBlogs;
 
   BlogsListModel({
     required this.blogs,
-  });
+  }) {
+    filteredBlogs = blogs;
+  }
 
   factory BlogsListModel.fromJson(Map<String, dynamic> json) =>
       _$BlogsListModelFromJson(json);

@@ -42,12 +42,12 @@ class Blogs extends StatelessWidget {
   }
 
   Widget _showBlogsList(BuildContext context) {
-    final blogs = context.watch<List<BlogModel>>();
+    final blogs = context.watch<BlogsListModel>();
     return ListView.builder(
-      itemCount: blogs.length,
+      itemCount: blogs.filteredBlogs.length,
       itemBuilder: (context, index) {
         return ChangeNotifierProvider.value(
-          value: blogs[index],
+          value: blogs.filteredBlogs[index],
           builder: (context, child) => blogCard(context),
         );
       },

@@ -34,9 +34,12 @@ Route routes(RouteSettings settings) {
   switch (settings.name) {
     case '/':
       return MaterialPageRoute(builder: (_) {
-        return FutureProvider<List<BlogModel>>(
-          create: (context) => fetchBlogs(),
-          initialData: const [],
+        return FutureProvider<BlogsListModel>(
+          create: (context) async {
+            final blogs = await fetchBlogs();
+            return BlogsListModel(blogs: blogs);
+          },
+          initialData: BlogsListModel(blogs: []),
           child: Blogs(),
         );
       });
