@@ -12,8 +12,27 @@ class Blogs extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Blogs and Articles"),
+        actions: [
+          _showPopUpMenu(context),
+        ],
       ),
       body: _blogsHomePage(context),
+    );
+  }
+
+  Widget _showPopUpMenu(BuildContext context) {
+    return PopupMenuButton<String>(
+      tooltip: "options",
+      itemBuilder: (_) {
+        return [
+          PopupMenuItem(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              "Favorite Blogs",
+            ),
+          ),
+        ];
+      },
     );
   }
 
