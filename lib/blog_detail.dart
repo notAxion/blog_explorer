@@ -3,14 +3,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BlogDetail extends StatefulWidget {
+class BlogDetail extends StatelessWidget {
   BlogDetail({super.key});
 
-  @override
-  State<BlogDetail> createState() => _BlogDetailState();
-}
-
-class _BlogDetailState extends State<BlogDetail> {
   @override
   Widget build(BuildContext context) {
     final blog = context.read<BlogModel>();
@@ -27,7 +22,7 @@ class _BlogDetailState extends State<BlogDetail> {
           _popUpMenu(context),
         ],
       ),
-      body: _detailBody(blog),
+      body: _detailBody(context, blog),
     );
   }
 
@@ -56,7 +51,7 @@ class _BlogDetailState extends State<BlogDetail> {
     );
   }
 
-  Widget _detailBody(BlogModel blog) {
+  Widget _detailBody(BuildContext context, BlogModel blog) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
