@@ -121,9 +121,18 @@ class _BlogsState extends State<Blogs> {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              blog.isFavorite = !blog.isFavorite;
+            });
+          },
           // TODO add animated icon to animate it to fill version
-          icon: Icon(Icons.favorite_outline_rounded),
+          icon: (blog.isFavorite)
+              ? Icon(
+                  Icons.favorite_rounded,
+                  color: Colors.red,
+                )
+              : Icon(Icons.favorite_outline_rounded),
         ),
       ],
     );
