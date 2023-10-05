@@ -23,8 +23,36 @@ class _BlogDetailState extends State<BlogDetail> {
             overflow: TextOverflow.fade,
           ),
         ),
+        actions: [
+          _popUpMenu(context),
+        ],
       ),
       body: _detailBody(blog),
+    );
+  }
+
+  Widget _popUpMenu(BuildContext context) {
+    final blog = context.watch<BlogModel>();
+    return PopupMenuButton<String>(
+      tooltip: "options",
+      // onSelected: handleClick,
+      itemBuilder: (_) {
+        return [
+          PopupMenuItem(
+            onTap: () => blog.isFavorite = !blog.isFavorite,
+            child: (blog.isFavorite)
+                ? const Text("Remove from Favorite")
+                : const Text("Add to Favorite"),
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+          ),
+          PopupMenuItem(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              "hide this article",
+            ),
+          ),
+        ];
+      },
     );
   }
 
