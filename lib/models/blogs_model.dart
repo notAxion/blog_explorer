@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'blogs_model.g.dart';
 
 @JsonSerializable(createToJson: false)
-class BlogsListModel {
+class BlogsListModel with ChangeNotifier {
   final List<BlogModel> blogs;
   late List<BlogModel> filteredBlogs;
 
@@ -16,6 +16,18 @@ class BlogsListModel {
 
   factory BlogsListModel.fromJson(Map<String, dynamic> json) =>
       _$BlogsListModelFromJson(json);
+
+  void filter({String? query}) {
+    if (query != null) {
+      filteredBlogs = (query == "")
+          ? blogs
+          : blogs
+              .where((blog) =>
+                  blog.title.toLowerCase().contains(query.toLowerCase()))
+              .toList();
+      notifyListeners();
+    }
+  }
 }
 
 @JsonSerializable(createToJson: false)

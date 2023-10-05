@@ -31,7 +31,9 @@ class Blogs extends StatelessWidget {
 
   Widget _searchBar(BuildContext context) {
     return TextField(
-      onChanged: (value) {},
+      onChanged: (query) {
+        context.read<BlogsListModel>().filter(query: query);
+      },
       decoration: InputDecoration(
         hintText: "Search",
         border: OutlineInputBorder(
@@ -43,14 +45,21 @@ class Blogs extends StatelessWidget {
 
   Widget _showBlogsList(BuildContext context) {
     final blogs = context.watch<BlogsListModel>();
-    return ListView.builder(
-      itemCount: blogs.filteredBlogs.length,
-      itemBuilder: (context, index) {
-        return ChangeNotifierProvider.value(
-          value: blogs.filteredBlogs[index],
-          builder: (context, child) => blogCard(context),
-        );
-      },
+    return ChangeNotifierProvider.value(
+      value: blogs,
+      child: Selector<BlogsListModel, List<BlogModel>>(
+        selector: (context, blogs) => blogs.filteredBlogs,
+        builder: (context, filteredBlogs, _) => ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: filteredBlogs.length,
+          itemBuilder: (context, index) {
+            return ChangeNotifierProvider.value(
+              value: filteredBlogs[index],
+              builder: (context, child) => blogCard(context),
+            );
+          },
+        ),
+      ),
     );
   }
 
