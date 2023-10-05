@@ -1,9 +1,11 @@
 import 'package:blog_explorer/args/detail_args.dart';
 import 'package:blog_explorer/blog_detail.dart';
 import 'package:blog_explorer/blogs_page.dart';
+import 'package:blog_explorer/models/blogs_model.dart';
 import 'package:blog_explorer/res/blogs_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -31,7 +33,13 @@ class MyApp extends StatelessWidget {
 Route routes(RouteSettings settings) {
   switch (settings.name) {
     case '/':
-      return MaterialPageRoute(builder: (_) => Blogs());
+      return MaterialPageRoute(builder: (_) {
+        return FutureProvider<List<BlogModel>>(
+          create: (context) => fetchBlogs(),
+          initialData: const [],
+          child: Blogs(),
+        );
+      });
     case '/detail':
       return MaterialPageRoute(builder: (_) {
         final args = settings.arguments as DetailArgs;

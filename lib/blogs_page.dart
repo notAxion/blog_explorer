@@ -1,8 +1,8 @@
 import 'package:blog_explorer/args/detail_args.dart';
 import 'package:blog_explorer/models/blogs_model.dart';
-import 'package:blog_explorer/res/blogs_api.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Blogs extends StatefulWidget {
   const Blogs({super.key});
@@ -12,21 +12,6 @@ class Blogs extends StatefulWidget {
 }
 
 class _BlogsState extends State<Blogs> {
-  var blogs = <BlogModel>[];
-
-  @override
-  void initState() {
-    fetchBlogs().then((blogsList) {
-      setState(() {
-        blogs = blogsList;
-      });
-    }).onError((error, stacktrace) {
-      // TODO handle error gracefully
-      debugPrint(error.toString());
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +47,7 @@ class _BlogsState extends State<Blogs> {
   }
 
   Widget _showBlogsList() {
+    final blogs = context.watch<List<BlogModel>>();
     return ListView.builder(
       itemCount: blogs.length,
       itemBuilder: (context, index) {
