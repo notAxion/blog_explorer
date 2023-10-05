@@ -1,20 +1,19 @@
 import 'package:blog_explorer/models/blogs_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BlogDetail extends StatefulWidget {
-  final BlogModel blog;
-  BlogDetail({super.key, required this.blog});
+  BlogDetail({super.key});
 
   @override
   State<BlogDetail> createState() => _BlogDetailState();
 }
 
 class _BlogDetailState extends State<BlogDetail> {
-  BlogModel get blog => widget.blog;
-
   @override
   Widget build(BuildContext context) {
+    final blog = context.read<BlogModel>();
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -25,11 +24,11 @@ class _BlogDetailState extends State<BlogDetail> {
           ),
         ),
       ),
-      body: _detailBody(),
+      body: _detailBody(blog),
     );
   }
 
-  Widget _detailBody() {
+  Widget _detailBody(BlogModel blog) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(

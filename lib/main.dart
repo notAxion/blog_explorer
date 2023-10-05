@@ -41,9 +41,14 @@ Route routes(RouteSettings settings) {
         );
       });
     case '/detail':
-      return MaterialPageRoute(builder: (_) {
+      return MaterialPageRoute(builder: (context) {
         final args = settings.arguments as DetailArgs;
-        return BlogDetail(blog: args.blog);
+        return ChangeNotifierProvider.value(
+          value: args.blog,
+          builder: (context, _) {
+            return BlogDetail();
+          },
+        );
       });
     default:
       return MaterialPageRoute(
