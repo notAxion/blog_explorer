@@ -1,6 +1,7 @@
 import 'package:blog_explorer/args/detail_args.dart';
 import 'package:blog_explorer/models/blogs_model.dart';
 import 'package:blog_explorer/res/blogs_api.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class Blogs extends StatefulWidget {
@@ -91,7 +92,9 @@ class _BlogsState extends State<Blogs> {
                 tag: "${blog.id}-image",
                 child: SizedBox(
                   height: 250,
-                  child: Image.network(blog.imageUrl),
+                  child: CachedNetworkImage(
+                    imageUrl: blog.imageUrl,
+                  ),
                 ),
               ),
               cardFooter(blog),
