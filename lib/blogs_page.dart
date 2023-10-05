@@ -90,12 +90,7 @@ class _BlogsState extends State<Blogs> {
             children: [
               Hero(
                 tag: "${blog.id}-image",
-                child: SizedBox(
-                  height: 250,
-                  child: CachedNetworkImage(
-                    imageUrl: blog.imageUrl,
-                  ),
-                ),
+                child: _showBlogImage(blog),
               ),
               cardFooter(blog),
             ],
@@ -103,6 +98,38 @@ class _BlogsState extends State<Blogs> {
         ),
       ),
     );
+  }
+
+  Widget _showBlogImage(BlogModel blog) {
+    try {
+      return SizedBox(
+        height: 250,
+        child: CachedNetworkImage(
+          imageUrl: blog.imageUrl,
+          progressIndicatorBuilder: (context, url, progress) {
+            return Center(
+              child: CircularProgressIndicator(
+                value: progress.progress,
+              ),
+            );
+          },
+          errorWidget: (context, _, __) => Center(
+            child: Text(
+              "error loading the image",
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+          ),
+        ),
+      );
+    } catch (e) {
+      return SizedBox(
+        height: 250,
+        child: Text(
+          "can't load the image",
+          style: Theme.of(context).textTheme.labelSmall,
+        ),
+      );
+    }
   }
 
   Widget cardFooter(BlogModel blog) {
