@@ -64,6 +64,25 @@ class Blogs extends StatelessWidget {
 
   Widget _showBlogsList(BuildContext context) {
     final blogs = context.watch<BlogsListModel>();
+    if (blogs.errorStr != null) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.error_outline,
+              size: 36,
+            ),
+            Text(
+              blogs.errorStr!,
+              maxLines: 7,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ],
+        ),
+      );
+    }
     return ChangeNotifierProvider.value(
       value: blogs,
       child: Selector<BlogsListModel, List<BlogModel>>(

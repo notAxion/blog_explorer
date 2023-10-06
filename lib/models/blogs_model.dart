@@ -7,9 +7,11 @@ part 'blogs_model.g.dart';
 class BlogsListModel with ChangeNotifier {
   final List<BlogModel> blogs;
   late List<BlogModel> filteredBlogs;
+  String? errorStr;
 
   BlogsListModel({
     required this.blogs,
+    this.errorStr,
   }) {
     filteredBlogs = blogs;
   }

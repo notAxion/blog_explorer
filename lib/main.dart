@@ -39,6 +39,9 @@ Route routes(RouteSettings settings) {
             final blogs = await fetchBlogs();
             return BlogsListModel(blogs: blogs);
           },
+          catchError: (context, error) {
+            return BlogsListModel(blogs: [], errorStr: error.toString());
+          },
           initialData: BlogsListModel(blogs: []),
           child: Blogs(),
         );
