@@ -33,11 +33,17 @@ class Blogs extends StatelessWidget {
         ],
         centerTitle: true,
         bottom: PreferredSize(
-          child: _searchBar(context),
           preferredSize: Size.fromHeight(80),
+          child: _searchBar(context),
         ),
       ),
-      body: _showBlogsList(context),
+      body: Center(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          constraints: BoxConstraints.loose(const Size.fromWidth(480)),
+          child: _showBlogsList(context),
+        ),
+      ),
     );
   }
 
