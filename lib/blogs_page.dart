@@ -9,6 +9,22 @@ class Blogs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final blogs = context.watch<BlogsListModel>();
+    if (blogs.errorStr != null) {
+      return Scaffold(body: onErrorWidget(context, blogs));
+    }
+    if (blogs.filteredBlogs.isEmpty) {
+      return const Center(
+        child: Scaffold(body: Center(child: CircularProgressIndicator())),
+      );
+    }
+    return ChangeNotifierProvider.value(
+      value: blogs,
+      child: _blogsHomePage(context),
+    );
+  }
+
+  Widget _blogsHomePage(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Blogs and Articles"),
@@ -16,7 +32,15 @@ class Blogs extends StatelessWidget {
           _showPopUpMenu(context),
         ],
       ),
-      body: _blogsHomePage(context),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _searchBar(context),
+          Expanded(
+            child: _showBlogsList(context),
+          ),
+        ],
+      ),
     );
   }
 
@@ -36,18 +60,6 @@ class Blogs extends StatelessWidget {
     );
   }
 
-  Widget _blogsHomePage(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _searchBar(context),
-        Expanded(
-          child: _showBlogsList(context),
-        ),
-      ],
-    );
-  }
-
   Widget _searchBar(BuildContext context) {
     return TextField(
       onChanged: (query) {
@@ -63,40 +75,38 @@ class Blogs extends StatelessWidget {
   }
 
   Widget _showBlogsList(BuildContext context) {
-    final blogs = context.watch<BlogsListModel>();
-    if (blogs.errorStr != null) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.error_outline,
-              size: 36,
-            ),
-            Text(
-              blogs.errorStr!,
-              maxLines: 7,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ],
-        ),
-      );
-    }
-    return ChangeNotifierProvider.value(
-      value: blogs,
-      child: Selector<BlogsListModel, List<BlogModel>>(
-        selector: (context, blogs) => blogs.filteredBlogs,
-        builder: (context, filteredBlogs, _) => ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: filteredBlogs.length,
-          itemBuilder: (context, index) {
-            return ChangeNotifierProvider.value(
-              value: filteredBlogs[index],
-              builder: (context, child) => blogCard(context),
-            );
-          },
-        ),
+    final blogs = context.read<BlogsListModel>();
+    return Selector<BlogsListModel, List<BlogModel>>(
+      selector: (context, blogs) => blogs.filteredBlogs,
+      builder: (context, filteredBlogs, _) => ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemCount: filteredBlogs.length,
+        itemBuilder: (context, index) {
+          return ChangeNotifierProvider.value(
+            value: filteredBlogs[index],
+            builder: (context, child) => blogCard(context),
+          );
+        },
+      ),
+    );
+  }
+
+  Center onErrorWidget(BuildContext context, BlogsListModel blogs) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.error_outline,
+            size: 36,
+          ),
+          Text(
+            blogs.errorStr!,
+            maxLines: 7,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ],
       ),
     );
   }
