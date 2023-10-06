@@ -96,26 +96,6 @@ class Blogs extends StatelessWidget {
     );
   }
 
-  Center onErrorWidget(BuildContext context, BlogsListModel blogs) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(
-            Icons.error_outline,
-            size: 36,
-          ),
-          Text(
-            blogs.errorStr!,
-            maxLines: 7,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget blogCard(BuildContext context) {
     final blog = context.read<BlogModel>();
     return InkWell(
@@ -224,6 +204,26 @@ class Blogs extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget onErrorWidget(BuildContext context, BlogsListModel blogs) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.error_outline,
+            size: 36,
+          ),
+          Text(
+            blogs.errorStr!,
+            maxLines: 7,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ],
+      ),
     );
   }
 }
