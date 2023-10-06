@@ -30,7 +30,6 @@ class BlogDetail extends StatelessWidget {
     final blog = context.watch<BlogModel>();
     return PopupMenuButton<String>(
       tooltip: "options",
-      // onSelected: handleClick,
       itemBuilder: (_) {
         return [
           PopupMenuItem(
