@@ -40,12 +40,6 @@ class BlogDetail extends StatelessWidget {
                 : const Text("Add to Favorite"),
             padding: EdgeInsets.symmetric(horizontal: 8.0),
           ),
-          PopupMenuItem(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              "hide this article",
-            ),
-          ),
         ];
       },
     );
