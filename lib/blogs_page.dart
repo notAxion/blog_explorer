@@ -150,11 +150,12 @@ class Blogs extends StatelessWidget {
   Widget _showBlogImage(BuildContext context, BlogModel blog) {
     try {
       return SizedBox(
-        height: 250,
+        height: 220,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(18.0),
           child: CachedNetworkImage(
             imageUrl: blog.imageUrl,
+            fit: BoxFit.cover,
             progressIndicatorBuilder: (context, url, progress) {
               return Center(
                 child: CircularProgressIndicator(
