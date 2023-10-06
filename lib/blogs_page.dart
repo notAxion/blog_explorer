@@ -127,11 +127,11 @@ class Blogs extends StatelessWidget {
           side: BorderSide(
             color: Theme.of(context).colorScheme.outline,
           ),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(25),
         ),
         margin: const EdgeInsets.all(8.0),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0).copyWith(top: 10.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -151,19 +151,22 @@ class Blogs extends StatelessWidget {
     try {
       return SizedBox(
         height: 250,
-        child: CachedNetworkImage(
-          imageUrl: blog.imageUrl,
-          progressIndicatorBuilder: (context, url, progress) {
-            return Center(
-              child: CircularProgressIndicator(
-                value: progress.progress,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(18.0),
+          child: CachedNetworkImage(
+            imageUrl: blog.imageUrl,
+            progressIndicatorBuilder: (context, url, progress) {
+              return Center(
+                child: CircularProgressIndicator(
+                  value: progress.progress,
+                ),
+              );
+            },
+            errorWidget: (context, _, __) => Center(
+              child: Text(
+                "error loading the image",
+                style: Theme.of(context).textTheme.labelSmall,
               ),
-            );
-          },
-          errorWidget: (context, _, __) => Center(
-            child: Text(
-              "error loading the image",
-              style: Theme.of(context).textTheme.labelSmall,
             ),
           ),
         ),
@@ -184,13 +187,19 @@ class Blogs extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
-          child: Hero(
-            tag: "${blog.id}-title",
-            child: Text(
-              blog.title,
-              maxLines: 4,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyLarge,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Hero(
+              tag: "${blog.id}-title",
+              child: Text(
+                blog.title,
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontWeight: FontWeight.w500),
+              ),
             ),
           ),
         ),
@@ -205,8 +214,12 @@ class Blogs extends StatelessWidget {
                 ? Icon(
                     Icons.favorite_rounded,
                     color: Colors.red,
+                    // size: 30,
                   )
-                : Icon(Icons.favorite_outline_rounded),
+                : Icon(
+                    Icons.favorite_outline_rounded,
+                    size: 30,
+                  ),
           ),
         ),
       ],
