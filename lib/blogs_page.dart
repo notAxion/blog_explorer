@@ -31,16 +31,13 @@ class Blogs extends StatelessWidget {
         actions: [
           _showPopUpMenu(context),
         ],
+        centerTitle: true,
+        bottom: PreferredSize(
+          child: _searchBar(context),
+          preferredSize: Size.fromHeight(80),
+        ),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _searchBar(context),
-          Expanded(
-            child: _showBlogsList(context),
-          ),
-        ],
-      ),
+      body: _showBlogsList(context),
     );
   }
 
@@ -65,14 +62,18 @@ class Blogs extends StatelessWidget {
   }
 
   Widget _searchBar(BuildContext context) {
-    return TextField(
-      onChanged: (query) {
-        context.read<BlogsListModel>().filter(query: query);
-      },
-      decoration: InputDecoration(
-        hintText: "Search",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+      child: TextField(
+        onChanged: (query) {
+          context.read<BlogsListModel>().filter(query: query);
+        },
+        decoration: InputDecoration(
+          isDense: true,
+          hintText: "Search",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
         ),
       ),
     );
