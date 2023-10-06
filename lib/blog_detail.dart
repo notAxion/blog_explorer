@@ -49,11 +49,13 @@ class BlogDetail extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          Hero(
-            tag: "${blog.id}-image",
-            child: SizedBox(
-              height: 250,
-              child: CachedNetworkImage(imageUrl: blog.imageUrl),
+          Center(
+            child: Hero(
+              tag: "${blog.id}-image",
+              child: SizedBox(
+                height: 250,
+                child: CachedNetworkImage(imageUrl: blog.imageUrl),
+              ),
             ),
           ),
           Hero(
