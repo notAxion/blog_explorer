@@ -80,7 +80,6 @@ class Blogs extends StatelessWidget {
   }
 
   Widget _showBlogsList(BuildContext context) {
-    final blogs = context.read<BlogsListModel>();
     return Selector<BlogsListModel, List<BlogModel>>(
       selector: (context, blogs) => blogs.filteredBlogs,
       builder: (context, filteredBlogs, _) => ListView.builder(
