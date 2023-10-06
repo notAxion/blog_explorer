@@ -48,12 +48,16 @@ class Blogs extends StatelessWidget {
     return PopupMenuButton<String>(
       tooltip: "options",
       itemBuilder: (_) {
+        final onlyshowFavs = context.read<BlogsListModel>().onlyShowFavs;
         return [
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              "Favorite Blogs",
-            ),
+            onTap: () => context
+                .read<BlogsListModel>()
+                .filter(query: "", showFavorites: !onlyshowFavs),
+            child: (!onlyshowFavs)
+                ? Text("Favorite Blogs")
+                : Text("Show All Blogs"),
           ),
         ];
       },

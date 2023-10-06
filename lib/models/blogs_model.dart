@@ -8,6 +8,7 @@ class BlogsListModel with ChangeNotifier {
   final List<BlogModel> blogs;
   late List<BlogModel> filteredBlogs;
   String? errorStr;
+  bool onlyShowFavs = false;
 
   BlogsListModel({
     required this.blogs,
@@ -19,16 +20,22 @@ class BlogsListModel with ChangeNotifier {
   factory BlogsListModel.fromJson(Map<String, dynamic> json) =>
       _$BlogsListModelFromJson(json);
 
-  void filter({String? query}) {
+  void filter({String? query, bool? showFavorites}) {
+    if (showFavorites != null) {
+      onlyShowFavs = showFavorites;
+    }
+    filteredBlogs = (!onlyShowFavs)
+        ? blogs
+        : blogs.where((blog) => blog.isFavorite == true).toList();
     if (query != null) {
       filteredBlogs = (query == "")
-          ? blogs
-          : blogs
+          ? filteredBlogs
+          : filteredBlogs
               .where((blog) =>
                   blog.title.toLowerCase().contains(query.toLowerCase()))
               .toList();
-      notifyListeners();
     }
+    notifyListeners();
   }
 }
 
